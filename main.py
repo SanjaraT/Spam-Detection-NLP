@@ -4,6 +4,7 @@ import re
 import nltk
 nltk.download ('stopwords')
 from nltk.corpus import stopwords
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 df = pd.read_csv("spam.csv",encoding='latin-1')
@@ -24,4 +25,13 @@ def clean_text(text):
     text = text.strip()
     return text
 df['text']=df['text'].apply(clean_text)
-print(df.head())
+# print(df.head())
+
+#Text Conversion
+tfidf = TfidfVectorizer(
+    stop_words = 'english',
+    max_features = 5000,
+    ngram_range = (1,2)
+)
+X = tfidf.fit_transform(df['text'])
+y = df['label']
