@@ -8,6 +8,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.svm import SVC
 
 
 df = pd.read_csv("spam.csv",encoding='latin-1')
@@ -49,4 +50,12 @@ NB = MultinomialNB()
 NB.fit(X_train,y_train)
 
 pred_nb = NB.predict(X_test)
-print("Naive Bayes\n",classification_report(y_test, pred_nb))
+# print("Naive Bayes\n",classification_report(y_test, pred_nb))
+
+#SVM
+svm = SVC()
+svm.fit(X_train, y_train)
+
+pred_svm = svm.predict(X_test)
+print("SVM\n",classification_report(y_test, pred_nb))
+
